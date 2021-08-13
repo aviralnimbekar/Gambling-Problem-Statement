@@ -1,4 +1,4 @@
-package com.Bridgelabs;
+package com.bridgelabs;
 
 public class GamblingProb {
 
