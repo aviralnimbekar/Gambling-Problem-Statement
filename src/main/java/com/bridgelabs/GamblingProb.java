@@ -10,21 +10,22 @@ public class GamblingProb {
      *
      * @return totalStake
      */
-    public int makeBet() {
+    public void makeBet() {
 
         int win = 1;
-        int totalStake = 100;
         int random = (int) (Math.random() * 2);
 
         if (random == win) {
-            totalStake++;
+            System.out.println("WON");;
         } else {
-            totalStake--;
+            System.out.println("LOSE");
         }
-        return totalStake;
     }
 
     public static void main(String[] args) {
         System.out.println("Welcome to Gambling Problem");
+
+        GamblingProb game = new GamblingProb();
+        game.makeBet();
     }
 }
