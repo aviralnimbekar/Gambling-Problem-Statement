@@ -6,11 +6,10 @@ public class GamblingProb {
     public static final int BET_STAKE = 1;
     public static int finalSakeForDay, initialStakeForDay;
 
-
     /**
      * making bet for win or lose
      *
-     * @return finalSakeForDay
+     * @return final Stake after a bet
      * variable: initialStakeForDay
      */
     public static int makeBet() {
@@ -53,13 +52,34 @@ public class GamblingProb {
     }
 
     /**
+     * Betting for 20 days and adding each day's STAKE at the end of the day
+     *
+     * @return profitOrloss; (profit or loss for 20 day)
+     */
+    public static int stakeAtDay21() {
+
+        int finalSakeAfterDay20 = 0;
+        int profitOrloss;
+
+        for (int i = 1; i <= 20; i++) {
+
+            System.out.println("Day: " + i);
+            resignationForDay();
+            finalSakeAfterDay20 += finalSakeForDay;
+        }
+        profitOrloss = finalSakeAfterDay20 - INITIAL_STAKE * 20;
+        return profitOrloss;
+    }
+
+    /**
      * Purpose - Execution of program by calling required method
+     *
      * @param args resignationForDay
      */
     public static void main(String[] args) {
         System.out.println("Welcome to Gambling Problem");
 
-        System.out.println("Gambler reached to " + resignationForDay() + " and stopped for day");
+        System.out.println("Profit or loss after day 20: " + stakeAtDay21());
     }
 }
 
