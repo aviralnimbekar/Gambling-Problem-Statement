@@ -82,4 +82,3 @@ public class GamblingProb {
         System.out.println("Profit or loss after day 20: " + stakeAtDay21());
     }
 }
-
