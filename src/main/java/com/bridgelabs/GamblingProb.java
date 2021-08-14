@@ -4,7 +4,8 @@ public class GamblingProb {
 
     public static final int INITIAL_STAKE = 100;
     public static final int BET_STAKE = 1;
-    public static int finalSakeForDay, initialStakeForDay;
+    public static int finalSakeForDay, initialStakeForDay, LOWER_AMOUNT,
+            UPPER_AMOUNT, winCountOfMonth, loseCountOfMonth;
 
     /**
      * making bet for win or lose
@@ -17,13 +18,11 @@ public class GamblingProb {
         int WIN = 1;
         int random = (int) (Math.random() * 2);
 
-        if (random == WIN) {
-            System.out.println("***WON***");
+        if (random == WIN)
             initialStakeForDay++;
-        } else {
-            System.out.println("***LOSE***");
+        else
             initialStakeForDay--;
-        }
+
         return initialStakeForDay;
     }
 
@@ -34,17 +33,17 @@ public class GamblingProb {
      */
     public static int resignationForDay() {
 
-        int lowerAmount = INITIAL_STAKE - INITIAL_STAKE / 2;
-        int upperAmount = INITIAL_STAKE + INITIAL_STAKE / 2;
+        LOWER_AMOUNT = INITIAL_STAKE - INITIAL_STAKE / 2;
+        UPPER_AMOUNT = INITIAL_STAKE + INITIAL_STAKE / 2;
         initialStakeForDay = 100;
         boolean run = true;
 
         while (run) {
 
             makeBet();
-            if (initialStakeForDay <= lowerAmount)
+            if (initialStakeForDay <= LOWER_AMOUNT)
                 run = false;
-            if (initialStakeForDay >= upperAmount)
+            if (initialStakeForDay >= UPPER_AMOUNT)
                 run = false;
         }
         finalSakeForDay = initialStakeForDay;
@@ -52,33 +51,45 @@ public class GamblingProb {
     }
 
     /**
-     * Betting for 20 days and adding each day's STAKE at the end of the day
+     * Betting for a month (30 days), counting each day's profit/loss and adding each day's STAKE at the end of the day
      *
-     * @return profitOrloss; (profit or loss for 20 day)
+     * @return profitOrloss; (profit or loss for 30 day)
      */
-    public static int stakeAtDay21() {
+    public static int stakeAfterMonth() {
 
         int finalSakeAfterDay20 = 0;
         int profitOrloss;
 
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= 30; i++) {
 
             System.out.println("Day: " + i);
             resignationForDay();
+
+            if (finalSakeForDay == LOWER_AMOUNT) {
+                System.out.println("Lose for day");
+                loseCountOfMonth++;
+            } else if (finalSakeForDay == UPPER_AMOUNT) {
+                System.out.println("Win for day");
+                winCountOfMonth++;
+            }
             finalSakeAfterDay20 += finalSakeForDay;
         }
-        profitOrloss = finalSakeAfterDay20 - INITIAL_STAKE * 20;
+
+        System.out.println("Total WINS in a month: " + winCountOfMonth + "\n"
+                + "Total LOSES in a month: " + loseCountOfMonth);
+
+        profitOrloss = finalSakeAfterDay20 - INITIAL_STAKE * 30;
         return profitOrloss;
     }
 
     /**
      * Purpose - Execution of program by calling required method
      *
-     * @param args resignationForDay
+     * @param args stakeAfterMonth()
      */
     public static void main(String[] args) {
         System.out.println("Welcome to Gambling Problem");
 
-        System.out.println("Profit or loss after day 20: " + stakeAtDay21());
+        System.out.println("Profit or loss after a month(30 days): " + stakeAfterMonth());
     }
 }
