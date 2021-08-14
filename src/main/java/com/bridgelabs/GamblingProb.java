@@ -1,5 +1,7 @@
 package com.bridgelabs;
 
+import java.util.Scanner;
+
 public class GamblingProb {
 
     public static final int INITIAL_STAKE = 100;
@@ -86,6 +88,9 @@ public class GamblingProb {
         return profitOrloss;
     }
 
+    /**
+     * To get the luckiest day i.e.  he/she won the most or unluckiest day i.e. he/she lost the most
+     */
     public static void luckyUnluckyDay() {
 
         int max = 0;
@@ -117,14 +122,38 @@ public class GamblingProb {
     }
 
     /**
+     *Ask user whether he/she wants to continue the game to quite
+     */
+    public static void continuation() {
+
+        boolean playAgain = true;
+
+        while (playAgain) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Play Again y/n");
+            char ans = sc.next().charAt(0);
+            if (ans == 'y') {
+                System.out.println("Profit or loss after a month(30 days): " + stakeAfterMonth());
+                luckyUnluckyDay();
+            } else if (ans == 'n') {
+                break;
+            } else {
+                System.out.println("Please enter y or n");
+                continue;
+            }
+        }
+    }
+
+    /**
      * Purpose - Execution of program by calling required method
      *
-     * @param args stakeAfterMonth(), luckyUnluckyDay()
+     * @param args stakeAfterMonth(), luckyUnluckyDay(), continuation()
      */
     public static void main(String[] args) {
         System.out.println("Welcome to Gambling Problem");
 
         System.out.println("Profit or loss after a month(30 days): " + stakeAfterMonth());
         luckyUnluckyDay();
+        continuation();
     }
 }
